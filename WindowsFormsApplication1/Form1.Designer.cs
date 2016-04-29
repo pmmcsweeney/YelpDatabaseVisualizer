@@ -988,6 +988,7 @@
             this.button8.TabIndex = 8;
             this.button8.Text = "Remove";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // listBox10
             // 
@@ -1014,6 +1015,7 @@
             this.button7.TabIndex = 5;
             this.button7.Text = "Add";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label21
             // 

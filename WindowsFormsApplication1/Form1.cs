@@ -38,6 +38,8 @@ namespace WindowsFormsApplication1
                 comboBox4.Items.Add(i);
                 comboBox5.Items.Add(i);
             }
+            comboBox3.Items.Add("True");
+            comboBox3.Items.Add("False");
 
             
 
@@ -351,7 +353,15 @@ namespace WindowsFormsApplication1
                 {
                     searchQuery += " AND bid IN (SELECT catagories.bid FROM catagories WHERE cname = '" + listBox7.Items[i].ToString() + "'";
                 }
-                for (int i = 0; i < listBox7.Items.Count; i++)
+                for (int i = 0; i < listBox10.Items.Count; i++)
+                {
+                    string[] attribute = listBox10.Items[i].ToString().Split(',');
+                    if (attribute[1] == "True")
+                        searchQuery += " AND bid IN (SELECT attributes.bid FROM attributes WHERE aname = '" + attribute[0] + "'";
+                    else
+                        searchQuery += " AND bid NOT IN (SELECT attributes.bid FROM attributes WHERE aname = '" + attribute[0] + "'";
+                }
+                for (int i = 0; i < listBox7.Items.Count+listBox10.Items.Count; i++)
                     searchQuery += ")";
                 searchQuery += ";";
                 MessageBox.Show(searchQuery);
@@ -382,7 +392,15 @@ namespace WindowsFormsApplication1
                 {
                     searchQuery += " AND bid IN (SELECT catagories.bid FROM catagories WHERE cname = '" + listBox7.Items[i].ToString() + "'";
                 }
-                for (int i = 0; i < listBox7.Items.Count; i++)
+                for (int i = 0; i < listBox10.Items.Count; i++)
+                {
+                    string[] attribute = listBox10.Items[i].ToString().Split(',');
+                    if (attribute[1] == "True")
+                        searchQuery += " AND bid IN (SELECT attributes.bid FROM attributes WHERE aname = '" + attribute[0] + "'";
+                    else
+                        searchQuery += " AND bid NOT IN (SELECT attributes.bid FROM attributes WHERE aname = '" + attribute[0] + "'";
+                }
+                for (int i = 0; i < listBox7.Items.Count+listBox10.Items.Count; i++)
                     searchQuery += ")";
                 searchQuery += ";";
                 MessageBox.Show(searchQuery);
@@ -411,7 +429,15 @@ namespace WindowsFormsApplication1
                 {
                     searchQuery += " AND bid IN (SELECT catagories.bid FROM catagories WHERE cname = '" + listBox7.Items[i].ToString() + "'";
                 }
-                for (int i = 0; i < listBox7.Items.Count; i++)
+                for (int i = 0; i < listBox10.Items.Count; i++)
+                {
+                    string[] attribute = listBox10.Items[i].ToString().Split(',');
+                    if (attribute[1] == "True")
+                        searchQuery += " AND bid IN (SELECT attributes.bid FROM attributes WHERE aname = '" + attribute[0] + "'";
+                    else
+                        searchQuery += " AND bid NOT IN (SELECT attributes.bid FROM attributes WHERE aname = '" + attribute[0] + "'";
+                }
+                for (int i = 0; i < listBox7.Items.Count+listBox10.Items.Count; i++)
                     searchQuery += ")";
                 searchQuery += ";";
                 MessageBox.Show(searchQuery);
@@ -438,6 +464,22 @@ namespace WindowsFormsApplication1
             ReviewsVisualizer reviewsVisualizer = new ReviewsVisualizer();
             reviewsVisualizer.setParams(myDB, table.Rows[e.RowIndex].Cells[0].Value.ToString(), table.Rows[e.RowIndex].Cells[1].Value.ToString(), table.Rows[e.RowIndex].Cells[2].Value.ToString(), table.Rows[e.RowIndex].Cells[3].Value.ToString());
             reviewsVisualizer.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (listBox9.SelectedItem == null || comboBox3.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an Attribute AND a Value.");
+                return;
+            }
+            listBox10.Items.Add(listBox9.SelectedItem + "," + comboBox3.SelectedItem);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (listBox10.SelectedItem != null)
+                listBox10.Items.Remove(listBox10.SelectedItem);
         }
     }
 }
